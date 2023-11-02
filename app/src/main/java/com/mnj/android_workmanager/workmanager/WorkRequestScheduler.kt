@@ -52,10 +52,10 @@ object WorkRequestScheduler {
             .addTag("myworkmanager")
             .build()
 
-        val periodicWork = PeriodicWorkRequestBuilder<MyWorker>(16,TimeUnit.MINUTES)
+        val periodicWork = PeriodicWorkRequestBuilder<RepetativeWorker>(3000,TimeUnit.MILLISECONDS)
             .setConstraints(constraints).build()
 
-        WorkManager.getInstance(context).enqueue(repeatingWorkRequest)
+        WorkManager.getInstance(context).enqueue(periodicWork)
 
        /* WorkManager.getInstance(context).enqueueUniquePeriodicWork(
             "myworkmanager",
