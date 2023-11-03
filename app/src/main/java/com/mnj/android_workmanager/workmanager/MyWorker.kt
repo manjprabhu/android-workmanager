@@ -17,7 +17,6 @@ class MyWorker(appContext: Context, workParams: WorkerParameters) : Worker(appCo
     private val TASK_KEY = "tnput_TASK_KEY"
 
     override fun doWork(): Result {
-        inputData
         println("==>> .....worker thread running.....")
         doYourTask()
         val data1 = Data.Builder()

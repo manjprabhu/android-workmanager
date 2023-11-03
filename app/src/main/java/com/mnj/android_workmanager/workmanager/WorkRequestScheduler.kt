@@ -10,6 +10,8 @@ object WorkRequestScheduler {
 
     val TASK_KEY = "Input_TASK_KEY"
 
+    var workRetryCount: Int = 0
+
     fun constructOneTimeWork(context: Context) {
         println("==>> constructOneTimeWork ......")
         val constraints =
@@ -21,6 +23,18 @@ object WorkRequestScheduler {
         val oneTimeWorkRequest = OneTimeWorkRequest.Builder(MyWorker::class.java).setInputData(data)
             .setConstraints(constraints).build()
         WorkManager.getInstance(context).enqueue(oneTimeWorkRequest)
+    }
+
+    fun oneTimeWorkWithDelay(context: Context) {
+        println("==>>  oneTimeWorkWithDelay....")
+        val constraints =
+            Constraints.Builder().setRequiredNetworkType(NetworkType.UNMETERED).build()
+
+        val workRequest: WorkRequest = OneTimeWorkRequestBuilder<MyWorker>()
+            .setConstraints(constraints)
+            .setInitialDelay(1, TimeUnit.MINUTES)
+            .build()
+        WorkManager.getInstance(context).enqueue(workRequest)
     }
 
     // Repeated work
@@ -52,14 +66,27 @@ object WorkRequestScheduler {
             .addTag("myworkmanager")
             .build()
 
-        val periodicWork = PeriodicWorkRequestBuilder<RepetativeWorker>(3000,TimeUnit.MILLISECONDS)
+        val periodicWork = PeriodicWorkRequestBuilder<RepetitiveWorker>(3000, TimeUnit.MILLISECONDS)
             .setConstraints(constraints).build()
 
         WorkManager.getInstance(context).enqueue(periodicWork)
 
-       /* WorkManager.getInstance(context).enqueueUniquePeriodicWork(
-            "myworkmanager",
-            ExistingPeriodicWorkPolicy.UPDATE, repeatingWorkRequest
-        )*/
+        /* WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+             "myworkmanager",
+             ExistingPeriodicWorkPolicy.UPDATE, repeatingWorkRequest
+         )*/
     }
+
+    fun repetitiveWork(context: Context) {
+        println("==>> repetitiveWork .....")
+        val constraints =
+            Constraints.Builder().setRequiredNetworkType(NetworkType.UNMETERED).build()
+
+        val workRequest: WorkRequest =
+            OneTimeWorkRequestBuilder<MyWorkerRetry>().setConstraints(constraints).build()
+
+        WorkManager.getInstance(context).enqueue(workRequest)
+    }
+
+
 }
