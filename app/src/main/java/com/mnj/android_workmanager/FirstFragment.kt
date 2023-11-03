@@ -44,7 +44,7 @@ class FirstFragment : Fragment() {
 
         binding.buttonSecond.setOnClickListener {
             println("==>> Clicked....")
-            this.context?.let { it1 -> WorkRequestScheduler.oneTimeWorkWithDelay(it1) }
+            this.context?.let { it1 -> WorkRequestScheduler.retryWork(it1) }
         }
     }
 

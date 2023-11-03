@@ -9,7 +9,13 @@ class MyWorkerRetry(appContext: Context, workParams: WorkerParameters) :
 
     var workRetryCount: Int = 0
     override fun doWork(): Result {
-        TODO("Not yet implemented")
+        println("==>> doWork()  MyWorkerRetry ....")
+        return if (workRetryCount < 5) {
+            workRetryCount++
+            Result.retry()
+        } else {
+            Result.success()
+        }
     }
 
 

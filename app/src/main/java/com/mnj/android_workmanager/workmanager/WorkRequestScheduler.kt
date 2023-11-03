@@ -77,8 +77,8 @@ object WorkRequestScheduler {
          )*/
     }
 
-    fun repetitiveWork(context: Context) {
-        println("==>> repetitiveWork .....")
+    fun retryWork(context: Context) {
+        println("==>> retryWork .....")
         val constraints =
             Constraints.Builder().setRequiredNetworkType(NetworkType.UNMETERED).build()
 
@@ -87,6 +87,4 @@ object WorkRequestScheduler {
 
         WorkManager.getInstance(context).enqueue(workRequest)
     }
-
-
 }

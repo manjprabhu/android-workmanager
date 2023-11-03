@@ -7,7 +7,6 @@ import androidx.work.WorkerParameters
 class RepetitiveWorker(appContext: Context, workParams: WorkerParameters) :
     Worker(appContext, workParams) {
 
-
     override fun doWork(): Result {
         println("==>> Repeating work in progress....")
         return Result.success()
