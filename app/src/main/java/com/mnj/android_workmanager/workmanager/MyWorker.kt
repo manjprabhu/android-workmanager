@@ -35,6 +35,7 @@ class MyWorker(appContext: Context, workParams: WorkerParameters) : Worker(appCo
             "Worker Notification",
             NotificationManager.IMPORTANCE_DEFAULT
         )
+
         // Configure the notification channel.
         notificationChannel.description = "Channel description"
         notificationChannel.enableLights(true)
